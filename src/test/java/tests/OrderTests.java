@@ -56,7 +56,7 @@ public class OrderTests {
             // Логируем track
             System.out.println("Track value: " + trackValue);
             // запрос на отмену
-            ValidatableResponse responseDelete = requestAPI.sendOrderDeleteRequest(trackValue, "/api/v1/orders/cancel", "put");
+            requestAPI.sendOrderDeleteRequest(trackValue, "/api/v1/orders/cancel", "put");
         }
     }
 

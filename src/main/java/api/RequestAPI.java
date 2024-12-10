@@ -5,7 +5,6 @@ import io.restassured.response.ValidatableResponse;
 import model.Courier;
 import model.OrderLombok;
 
-import static io.restassured.RestAssured.delete;
 import static io.restassured.RestAssured.given;
 
 public class RequestAPI {

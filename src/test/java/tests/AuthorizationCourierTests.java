@@ -31,13 +31,13 @@ public class AuthorizationCourierTests {
         loginForAfterMethod = courier.getLogin();
         passwordForAfterMethod = courier.getPassword();
         // запрос для создания курьера
-        ValidatableResponse response = requestAPI.sendRequest(courier, "/api/v1/courier", "post");
+        requestAPI.sendRequest(courier, "/api/v1/courier", "post");
     }
 
     @After
     @Step("after cleanUp")
     public void cleanUp() {
-        // возвращаем курьеру параметры, удаленные или измененные в ходе тестов для корректного удаления курьера
+        // возвращаем курьеру параметры, удаленные или измененные в ходе тестов, для корректного удаления курьера
         courier.setLogin(loginForAfterMethod);
         courier.setPassword(passwordForAfterMethod);
         Allure.step("Check ID");
@@ -51,7 +51,7 @@ public class AuthorizationCourierTests {
 
         if (idValue != null) {
             Allure.step("Delete, if \"id\" is not null");
-            ValidatableResponse response = requestAPI.sendCourierDeleteRequest(idValue);
+            requestAPI.sendCourierDeleteRequest(idValue);
             // логируем успешное удаление
             System.out.println("Delete OK");
         }
@@ -74,8 +74,6 @@ public class AuthorizationCourierTests {
     @Test
     @Step("Check authorization courier without login")
     public void authorizationCourierWithoutLoginTest() {
-        // временно сохраняем параметр login курьера
-//        String loginValue = courier.getLogin();
         // удаляем у курьера параметр login
         courier.setLogin(null);
         // вызываем метод отправки запроса
@@ -84,16 +82,11 @@ public class AuthorizationCourierTests {
         response.log().all()
                 .assertThat().statusCode(400)
                 .and().body("message",  equalTo("Недостаточно данных для входа"));
-        // восстанавливаем login
-//        courier.setLogin(loginValue);
-
     }
 
     @Test
     @Step("Check authorization courier without password")
     public void authorizationCourierWithoutPasswordTest() {
-        // временно сохраняем параметр password курьера
-//        String passValue = courier.getPassword();
         // удаляем у курьера параметр password
         courier.setPassword(null);
         // вызываем метод отправки запроса
@@ -102,16 +95,12 @@ public class AuthorizationCourierTests {
         response.log().all()
                 .assertThat().statusCode(400)
                 .and().body("message", equalTo("Недостаточно данных для входа"));
-        // Восстанавливаем пароль
-//        courier.setPassword(passValue);
     }
 
 
     @Test
     @Step("Check authorization courier with another login")
     public void authorizationCourierWithAnotherLoginTest() {
-        // временно сохраняем параметр login курьера
-//        String loginValue = courier.getLogin();
         // меняем у курьера параметр login
         courier.setLogin("anotherLogin");
         // вызываем метод отправки запроса
@@ -120,16 +109,11 @@ public class AuthorizationCourierTests {
         response.log().all()
                 .assertThat().statusCode(404)
                 .and().body("message",  equalTo("Учетная запись не найдена"));
-        // восстанавливаем login
-//        courier.setLogin(loginValue);
-
     }
 
     @Test
     @Step("Check authorization courier with another password")
     public void authorizationCourierWithAnotherPasswordTest() {
-        // временно сохраняем параметр password курьера
-//        String passValue = courier.getPassword();
         // меняем у курьера параметр password
         courier.setPassword("anotherPass");
         // вызываем метод отправки запроса
@@ -138,11 +122,6 @@ public class AuthorizationCourierTests {
         response.log().all()
                 .assertThat().statusCode(404)
                 .and().body("message",  equalTo("Учетная запись не найдена"));
-        // Восстанавливаем password
-//        courier.setPassword(passValue);
-
     }
-
-
 
 }

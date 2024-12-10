@@ -50,7 +50,6 @@ public class CreateOrDeleteCourierTests {
     @Test
     @DisplayName("Check of create new courier")
     public void createNewCourierTest() {
-        String nameStep = "Check of create new courier";
         // вызываем метод отправки запроса
         ValidatableResponse response = requestAPI.sendRequest(courier, "/api/v1/courier", "post");
         // проверка
@@ -134,17 +133,6 @@ public class CreateOrDeleteCourierTests {
 
         // восстанавливаем login c целью избежать возможных ошибок далее в методе @After
         courier.setLogin(loginValue);
-
-
-//        Allure.step("Login is null");
-//        // Создаем экземпляр курьера без имени
-//        courier.setLogin(null);
-//        // вызываем метод отправки запроса
-//        ValidatableResponse secondResponse = requestAPI.sendRequest(courier, "/api/v1/courier", "post");
-//        // проверка
-//        secondResponse.log().all()
-//                .assertThat().statusCode(400)
-//                .and().body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
 
@@ -162,17 +150,6 @@ public class CreateOrDeleteCourierTests {
                 .and().body("message", equalTo("Недостаточно данных для создания учетной записи"));
         // восстанавливаем password c целью избежать возможных ошибок далее в методе @After
         courier.setPassword(passwordValue);
-
-
-//        Allure.step("Password is null");
-//        // Создаем экземпляр курьера без имени
-//        courier.setPassword(null);
-//        // вызываем метод отправки запроса
-//        ValidatableResponse secondResponse = requestAPI.sendRequest(courier, "/api/v1/courier", "post");
-//        // проверка
-//        secondResponse.log().all()
-//                .assertThat().statusCode(400)
-//                .and().body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
 
